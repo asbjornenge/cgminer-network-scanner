@@ -1,7 +1,7 @@
-import scanner from 'local-network-scanner'
-import tryport from 'is-port-reachable'
-import cgminer from 'cgminer-api'
-import minimist from 'minimist'
+const scanner  = require('local-network-scanner')
+const tryport  = require('is-port-reachable')
+const cgminer  = require('cgminer-api')
+const minimist = require('minimist')
 
 var argv = minimist(process.argv.slice(2), {
   default: {
