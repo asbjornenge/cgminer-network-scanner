@@ -19,12 +19,19 @@ async function scan() {
   for (let device of devices) {
     let open = await tryport(CGMINER_PORT, { host: device.ip })
     if (!open) continue;
-    let cgc = new cgminer.Client({
+    let cgc = new cgminer.client({
       host: device.ip,
       port: CGMINER_PORT
     })
-    let config = await cgminer.config()
-    miners.push(device.ip, config)
+    await cgc.connect()
+    let config = await cgc.config()
+    miners.push({
+      ip: device.ip,
+      type: config.length > 0 ? config[0]['Device Code'] : 'unknown'
+    })
+  }
+  for (let miner of miners) {
+    // TODO: Update rainbow DNS API (use ky)
   }
   console.log(miners)
 })()
