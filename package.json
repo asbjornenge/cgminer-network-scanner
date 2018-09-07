@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cgminer": "^0.1.0",
     "cgminer-api": "^1.0.0-beta6",
     "is-port-reachable": "^2.0.0",
-    "local-network-scanner": "^0.2.0"
+    "local-network-scanner": "^0.2.0",
+    "minimist": "^1.2.0"
   }
 }

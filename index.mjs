@@ -1,12 +1,18 @@
 import scanner from 'local-network-scanner'
 import tryport from 'is-port-reachable'
 import cgminer from 'cgminer-api'
+import minimist from 'minimist'
 
-const CGMINER_PORT = 4028
+var argv = minimist(process.argv.slice(2), {
+  default: {
+    cgminer_port: process.env['CGMINER_PORT'] || 4028,
+    interface: process.env['SCAN_INTERFACE'] || 'en0'
+  }
+})
 
 async function scan() {
   let promise = await new Promise((resolve, reject) => {
-    scanner.scan({arguments: ["-I", "en0"]}, devices => {
+    scanner.scan({arguments: ["-I", argv.interface]}, devices => {
       resolve(devices)
     })
   }).catch(err => {throw err})
@@ -17,11 +23,11 @@ async function scan() {
   let devices = await scan()
   let miners = []
   for (let device of devices) {
-    let open = await tryport(CGMINER_PORT, { host: device.ip })
+    let open = await tryport(argv.cgminer_port, { host: device.ip })
     if (!open) continue;
     let cgc = new cgminer.client({
       host: device.ip,
-      port: CGMINER_PORT
+      port: argv.cgminer_port
     })
     await cgc.connect()
     let config = await cgc.config()
