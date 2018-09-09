@@ -5,8 +5,8 @@ module.exports.scan = async function(args) {
   let promise = await new Promise((resolve, reject) => {
     let devices = []
     let alive = true
-    // TODO: mac / linux  = gstdbuf / stdbuf
-    let proc = spawn('gstdbuf', [
+    let stdbuf = process.platform === 'darwin' ? 'gstdbuf' : 'stdbuf'
+    let proc = spawn(stdbuf, [
       '-i0','-o0','-e0', 
       'arp-scan', '-I', args.interface, '-l', '-q'
     ])
