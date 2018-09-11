@@ -1,13 +1,13 @@
 {
-  "name": "mns",
+  "name": "cgminer-network-scanner",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node cli.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Asbjorn Enge <asbjorn@hanafjedle.net>",
+  "license": "MIT",
   "dependencies": {
     "is-ip": "^2.0.0",
     "is-port-reachable": "^2.0.0",
