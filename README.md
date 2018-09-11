@@ -1,6 +1,11 @@
 # cgminer-network-scanner
 
-This module will scan you local network using `arp-scan`, check if specified `cgminer-port` is open and tries to get use the `cgminer-api` ot query the miner type. It return a list of miners with ip address and type.
+This module will;
+
+* Scan you local network using `arp-scan`
+* Check if specified `cgminer-port` is open
+* Try to use the `cgminer-api` to query the miner type
+* Return a list of miners with ip address and type
 
 ## Install
 
