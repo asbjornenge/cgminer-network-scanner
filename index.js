@@ -9,10 +9,22 @@ module.exports = async function(args) {
     let open = await tryport(args.cgminer_port, { host: ip })
     if (!open) continue
     if (miners.map(m => m.ip).indexOf(ip) >= 0) continue
-    let config = await cgminer.config(ip, args.cgminer_port)
+    let config={},version={},type='unknown'
+    try {
+      config = await cgminer('config', ip, args.cgminer_port)
+    }
+    catch(e) {}
+    try {
+      version = await cgminer('version', ip, args.cgminer_port)
+    }
+    catch(e) {}
+    let devcode = config['Device Code']
+    let vertype = version['Type']
+    if (devcode && devcode != '') type = devcode.trim()
+    else if (vertype && vertype != '') type = vertype.trim()
     miners.push({
       ip: ip,
-      type: config['Device Code'].trim()
+      type: type 
     })
   }
   return miners
